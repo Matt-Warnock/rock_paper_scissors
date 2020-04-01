@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
+
+    <link rel="stylesheet" href="normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <h1>Rock, Paper, Scissors</h1>
+      </header>
+      <div class="human">
+        <h1>Choose a gesture!</h1>
+
+        <input type="radio" name="gesture" id="rock" value="rock">
+        <label for="rock">rock</label>
+
+        <input type="radio" name="gesture" id="paper" value="paper">
+        <label for="paper">paper</label>
+
+        <input type="radio" name="gesture" id="scissors" value="scissors">
+        <label for="scissors">scissors</label>
+
+        <button type="button" id="play" name="button">play</button>
+
+      </div>
+      <div class="computer">
+        <h1>Computer's gesture:</h1>
+        
+        <ol>
+          <li>rock</li>
+          <li>paper</li>
+          <li>scissors</li>
+        </ol>
+
+      </div>
+      <footer><p id="result"></p></footer>
+    </div>
+  </body>
+</html>
