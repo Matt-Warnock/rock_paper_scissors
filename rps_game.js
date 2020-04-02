@@ -8,8 +8,23 @@ function compGesture() {
   return gestureChoice[randomIndex];
 }
 
-function isDraw(user, computer) {
-  return user === computer;
+function isDraw(userChoise, computerChoise) {
+  return userChoise === computerChoise;
+}
+
+function gameRules(userChoise, computerChoise) {
+  if (userChoise === 'rock' && computerChoise === 'scissors') {
+    return true;
+  }
+  else if (userChoise === 'paper' && computerChoise === 'rock') {
+    return true;
+  }
+  else if (userChoise === 'scissors' && computerChoise === 'paper') {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 
@@ -18,5 +33,5 @@ button.addEventListener('click', function () {
 var x = compGesture();
   console.log(userGesture());
   console.log(x);
-  console.log(isDraw(userGesture(), x));
+  console.log(gameRules(userGesture(), x));
 });
