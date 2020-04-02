@@ -27,21 +27,22 @@ function gameRules(userChoise, computerChoise) {
 function playGame() {
   let userReturn = userGesture();
   let computerReturn = compGesture();
+  let footer = document.getElementById('result');
 
-  console.log(userReturn);
-  console.log(computerReturn);
 
   if (isDraw(userReturn, computerReturn) === true) {
-    return console.log('draw');
+     footer.innerHTML = 'Its a draw!';
+    return;
   } else if (gameRules(userReturn, computerReturn) === true) {
-    return console.log('You Win!');
+     footer.innerHTML = 'You win!';
+    return;
   } else {
-    return console.log('You Loose');
+     footer.innerHTML = 'You loose!';
   }
 }
 
 document.getElementById('play').addEventListener('click', function () {
 
   playGame();
-  
+
 });
