@@ -1,6 +1,5 @@
-function radioButtonSelected() {
-  let userGesture = document.querySelector('input[name=gesture]:checked').value;
-  return userGesture;
+function userGesture() {
+  return document.querySelector('input[name=gesture]:checked').value;
 }
 
 function compGesture() {
@@ -9,8 +8,15 @@ function compGesture() {
   return gestureChoice[randomIndex];
 }
 
+function isDraw(user, computer) {
+  return user === computer;
+}
+
+
 const button = document.getElementById('play');
 button.addEventListener('click', function () {
-
-  console.log(compGesture());
+var x = compGesture();
+  console.log(userGesture());
+  console.log(x);
+  console.log(isDraw(userGesture(), x));
 });
