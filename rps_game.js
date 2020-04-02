@@ -15,23 +15,33 @@ function isDraw(userChoise, computerChoise) {
 function gameRules(userChoise, computerChoise) {
   if (userChoise === 'rock' && computerChoise === 'scissors') {
     return true;
-  }
-  else if (userChoise === 'paper' && computerChoise === 'rock') {
+  } else if (userChoise === 'paper' && computerChoise === 'rock') {
     return true;
-  }
-  else if (userChoise === 'scissors' && computerChoise === 'paper') {
+  } else if (userChoise === 'scissors' && computerChoise === 'paper') {
     return true;
-  }
-  else {
+  } else {
     return false;
   }
 }
 
+function playGame() {
+  let userReturn = userGesture();
+  let computerReturn = compGesture();
 
-const button = document.getElementById('play');
-button.addEventListener('click', function () {
-var x = compGesture();
-  console.log(userGesture());
-  console.log(x);
-  console.log(gameRules(userGesture(), x));
+  console.log(userReturn);
+  console.log(computerReturn);
+
+  if (isDraw(userReturn, computerReturn) === true) {
+    return console.log('draw');
+  } else if (gameRules(userReturn, computerReturn) === true) {
+    return console.log('You Win!');
+  } else {
+    return console.log('You Loose');
+  }
+}
+
+document.getElementById('play').addEventListener('click', function () {
+
+  playGame();
+  
 });
