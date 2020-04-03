@@ -27,19 +27,48 @@ function gameRules(userChoise, computerChoise) {
 function playGame() {
   let userReturn = userGesture();
   let computerReturn = compGesture();
-  let footer = document.getElementById('result');
 
+  const footer = document.getElementById('result');
+
+  let displayRock = document.getElementById('c_rock');
+  let displayPaper = document.getElementById('c_paper');
+  let displayScissors = document.getElementById('c_scissors');
+
+
+  function displayComputerGesture() {
+    if (computerReturn === 'rock') {
+      displayRock.classList.add('selected');
+      return;
+    }
+    else if (computerReturn === 'paper') {
+      displayPaper.classList.add('selected');
+      return;
+    }
+    else {
+      displayScissors.classList.add('selected');
+    }
+  }
+
+function resetComputerDisplay() {
+  displayRock.classList.remove('selected');
+  displayPaper.classList.remove('selected');
+  displayScissors.classList.remove('selected');
+}
+
+resetComputerDisplay();
+displayComputerGesture();
 
   if (isDraw(userReturn, computerReturn) === true) {
-     footer.innerHTML = 'Its a draw!';
+     footer.textContent = 'Its a draw!';
     return;
   } else if (gameRules(userReturn, computerReturn) === true) {
-     footer.innerHTML = 'You win!';
+     footer.textContent = 'You win!';
     return;
   } else {
-     footer.innerHTML = 'You loose!';
+     footer.textContent = 'You loose!';
   }
 }
+
 
 document.getElementById('play').addEventListener('click', function () {
 
