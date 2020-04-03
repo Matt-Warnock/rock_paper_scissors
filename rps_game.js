@@ -12,60 +12,40 @@ function isDraw(userChoise, computerChoise) {
   return userChoise === computerChoise;
 }
 
-function gameRules(userChoise, computerChoise) {
-  if (userChoise === 'rock' && computerChoise === 'scissors') {
-    return true;
-  } else if (userChoise === 'paper' && computerChoise === 'rock') {
-    return true;
-  } else if (userChoise === 'scissors' && computerChoise === 'paper') {
-    return true;
-  } else {
-    return false;
-  }
+function humanWins(userChoise, computerChoise) {
+  return userChoise === 'rock' && computerChoise === 'scissors' ||
+         userChoise === 'paper' && computerChoise === 'rock' ||
+         userChoise === 'scissors' && computerChoise === 'paper';
+}
+
+function resetComputerDisplay() {
+  document.getElementById('c_rock').classList.remove('selected');
+  document.getElementById('c_paper').classList.remove('selected');
+  document.getElementById('c_scissors').classList.remove('selected');
 }
 
 function playGame() {
-  let userReturn = userGesture();
-  let computerReturn = compGesture();
+  let userMove = userGesture();
+  let computerMove = compGesture();
 
-  const footer = document.getElementById('result');
-
-  let displayRock = document.getElementById('c_rock');
-  let displayPaper = document.getElementById('c_paper');
-  let displayScissors = document.getElementById('c_scissors');
+  const result = document.getElementById('result');
 
 
-  function displayComputerGesture() {
-    if (computerReturn === 'rock') {
-      displayRock.classList.add('selected');
-      return;
-    }
-    else if (computerReturn === 'paper') {
-      displayPaper.classList.add('selected');
-      return;
-    }
-    else {
-      displayScissors.classList.add('selected');
-    }
-  }
 
-function resetComputerDisplay() {
-  displayRock.classList.remove('selected');
-  displayPaper.classList.remove('selected');
-  displayScissors.classList.remove('selected');
-}
 
-resetComputerDisplay();
-displayComputerGesture();
+  resetComputerDisplay();
 
-  if (isDraw(userReturn, computerReturn) === true) {
-     footer.textContent = 'Its a draw!';
+  document.getElementById(`c_${computerMove}`).classList.add('selected');
+
+
+  if (isDraw(userMove, computerMove)) {
+     result.textContent = 'Its a draw!';
     return;
-  } else if (gameRules(userReturn, computerReturn) === true) {
-     footer.textContent = 'You win!';
+  } else if (humanWins(userMove, computerMove)) {
+     result.textContent = 'You win!';
     return;
   } else {
-     footer.textContent = 'You loose!';
+     result.textContent = 'You loose!';
   }
 }
 

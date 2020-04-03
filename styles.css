@@ -30,8 +30,9 @@ header h1 {
   background-color: #fff;
   padding: 2.8em;
 }
-.human h1 {
-  margin-bottom: 0.4em;
+h2 {
+  margin-top: 0;
+  font-size: 2em;
 }
 .computer {
   grid-area: comp;
