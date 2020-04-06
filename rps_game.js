@@ -28,9 +28,10 @@ function playGame() {
   let userMove = userGesture();
   let computerMove = compGesture();
 
+  let robotFace = document.getElementById('robot_face').src;
+  let humanFace = document.getElementById('human_face').src;
+
   const result = document.getElementById('result');
-
-
 
 
   resetComputerDisplay();
@@ -40,12 +41,18 @@ function playGame() {
 
   if (isDraw(userMove, computerMove)) {
      result.textContent = 'Its a draw!';
+     document.getElementById('human_face').src = 'images/human.png';
+     document.getElementById('robot_face').src = 'images/robot.png';
     return;
   } else if (humanWins(userMove, computerMove)) {
      result.textContent = 'You win!';
+     document.getElementById('human_face').src = 'images/human-win.png';
+     document.getElementById('robot_face').src = 'images/robot-sad.png';
     return;
   } else {
      result.textContent = 'You loose!';
+     document.getElementById('human_face').src = 'images/human-sad.png';
+     document.getElementById('robot_face').src = 'images/robot-win.png';
   }
 }
 
