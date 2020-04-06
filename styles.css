@@ -26,6 +26,7 @@ header h1 {
   font-size: 3em;
 }
 .human {
+  position: relative;
   grid-area: human;
   background-color: #fff;
   padding: 2.8em;
@@ -35,13 +36,14 @@ h2 {
   font-size: 2em;
 }
 .computer {
+  position: relative;
   grid-area: comp;
   background-color: #333;
   padding: 2.8em;
   color: #fff;
 }
 .computer ol {
-  margin-right: 35%;
+  margin: 25px 35% 40px 0;
   padding-left: 0.4em;
   list-style: none;
 }
@@ -61,6 +63,35 @@ button:active {
 .human label, .computer ol {
   font-size: 1.2em;
   text-transform: uppercase;
+}
+figure {
+  margin: 0 auto 10%;
+  width: 50%;
+
+}
+figure img {
+  max-width: 100%;
+  animation: floot 3s ease-out 0s infinite;
+}
+
+figcaption {
+  position: absolute;
+  bottom: 2%;
+  left: 39.5%;
+
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 19%;
+  height: 4%;
+  border-radius: 50%;
+  color: transparent;
+  animation: shadow 3s ease-out 0s infinite;
+}
+
+@keyframes floot {
+  50% {transform: translateY(15%);}
+}
+@keyframes shadow {
+  50% {width: 21%; height: 6%; background-color: rgba(0, 0, 0, 0.35);}
 }
 footer {
   grid-area: footer;

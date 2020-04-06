@@ -31,8 +31,6 @@ function playGame() {
   const result = document.getElementById('result');
 
 
-
-
   resetComputerDisplay();
 
   document.getElementById(`c_${computerMove}`).classList.add('selected');
@@ -40,12 +38,18 @@ function playGame() {
 
   if (isDraw(userMove, computerMove)) {
      result.textContent = 'Its a draw!';
+     document.getElementById('human_face').src = 'images/human.png';
+     document.getElementById('robot_face').src = 'images/robot.png';
     return;
   } else if (humanWins(userMove, computerMove)) {
      result.textContent = 'You win!';
+     document.getElementById('human_face').src = 'images/human-win.png';
+     document.getElementById('robot_face').src = 'images/robot-sad.png';
     return;
   } else {
      result.textContent = 'You loose!';
+     document.getElementById('human_face').src = 'images/human-sad.png';
+     document.getElementById('robot_face').src = 'images/robot-win.png';
   }
 }
 
