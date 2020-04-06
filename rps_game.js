@@ -28,9 +28,6 @@ function playGame() {
   let userMove = userGesture();
   let computerMove = compGesture();
 
-  let robotFace = document.getElementById('robot_face').src;
-  let humanFace = document.getElementById('human_face').src;
-
   const result = document.getElementById('result');
 
 
