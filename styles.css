@@ -4,11 +4,11 @@ body {
   color: #333;
 }
 .container {
-  width: 94%;
-  margin: 2.8% auto;
+  width: 60%;
+  margin: 2% auto;
 
   display: grid;
-  grid-template: 1fr 5fr 1fr / 2fr 2fr;
+  grid-template: 0.75fr 5fr 0.75fr / 2fr 2fr;
   grid-template-areas: "head head"
                        "human comp"
                        "footer footer";
@@ -22,8 +22,8 @@ header, footer {
   text-align: center;
 }
 header h1 {
-  margin: 0.4em;
-  font-size: 3em;
+  margin: 0.2em;
+  font-size: 2.8em;
 }
 .human {
   position: relative;
