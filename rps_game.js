@@ -14,8 +14,8 @@ function isDraw(userChoise, computerChoise) {
 
 function humanWins(userChoise, computerChoise) {
   return userChoise === 'rock' && computerChoise === 'scissors' ||
-         userChoise === 'paper' && computerChoise === 'rock' ||
-         userChoise === 'scissors' && computerChoise === 'paper';
+  userChoise === 'paper' && computerChoise === 'rock' ||
+  userChoise === 'scissors' && computerChoise === 'paper';
 }
 
 function resetComputerDisplay() {
@@ -24,38 +24,44 @@ function resetComputerDisplay() {
   document.getElementById('c_scissors').classList.remove('selected');
 }
 
+function updateDispay(printOnScreen, humanDisplay, robotDisplay) {
+  result.textContent = printOnScreen;
+  document.getElementById('human_face').src = humanDisplay;
+  document.getElementById('robot_face').src = robotDisplay;
+}
+
 function playGame() {
   let userMove = userGesture();
   let computerMove = compGesture();
 
+  const winSound = new Audio('audio/tada.mp3');
+  const drawSound = new Audio('audio/kongas.mp3');
+  const looseSound = new Audio('audio/Wrong-answer-sound-effect.mp3');
+
   const result = document.getElementById('result');
 
-
-  resetComputerDisplay();
 
   document.getElementById(`c_${computerMove}`).classList.add('selected');
 
 
   if (isDraw(userMove, computerMove)) {
-     result.textContent = 'Its a draw!';
-     document.getElementById('human_face').src = 'images/human.png';
-     document.getElementById('robot_face').src = 'images/robot.png';
-    return;
+    drawSound.play();
+    return updateDispay('Its a draw!', 'images/human.png', 'images/robot.png');
+
   } else if (humanWins(userMove, computerMove)) {
-     result.textContent = 'You win!';
-     document.getElementById('human_face').src = 'images/human-win.png';
-     document.getElementById('robot_face').src = 'images/robot-sad.png';
-    return;
+    winSound.play();
+    return updateDispay('You win!', 'images/human-win.png', 'images/robot-sad.png');
+
   } else {
-     result.textContent = 'You loose!';
-     document.getElementById('human_face').src = 'images/human-sad.png';
-     document.getElementById('robot_face').src = 'images/robot-win.png';
+    looseSound.play();
+    return updateDispay('You loose!', 'images/human-sad.png', 'images/robot-win.png');
   }
 }
 
 
 document.getElementById('play').addEventListener('click', function () {
 
+  resetComputerDisplay();
   playGame();
 
 });
