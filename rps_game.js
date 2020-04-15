@@ -36,7 +36,7 @@ function playGame() {
 
   const winSound = new Audio('audio/tada.mp3');
   const drawSound = new Audio('audio/kongas.mp3');
-  const looseSound = new Audio('audio/Wrong-answer-sound-effect.mp3');
+  const loseSound = new Audio('audio/Wrong-answer-sound-effect.mp3');
 
   const result = document.getElementById('result');
 
@@ -53,8 +53,8 @@ function playGame() {
     return updateDispay('You win!', 'images/human-win.png', 'images/robot-sad.png');
 
   } else {
-    looseSound.play();
-    return updateDispay('You loose!', 'images/human-sad.png', 'images/robot-win.png');
+    loseSound.play();
+    return updateDispay('You lose!', 'images/human-sad.png', 'images/robot-win.png');
   }
 }
 
