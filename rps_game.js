@@ -1,4 +1,4 @@
-function userGesture() {
+/* function userGesture() {
   return document.querySelector('input[name=gesture]:checked').value;
 }
 
@@ -16,7 +16,7 @@ function humanWins(userChoise, computerChoise) {
   return userChoise === 'rock' && computerChoise === 'scissors' ||
          userChoise === 'paper' && computerChoise === 'rock' ||
          userChoise === 'scissors' && computerChoise === 'paper';
-}
+};
 
 function resetComputerDisplay() {
   document.getElementById('c_rock').classList.remove('selected');
@@ -64,13 +64,42 @@ document.getElementById('play').addEventListener('click', function () {
   resetComputerDisplay();
   playGame();
 
-});
+}); */
 
 
 (function () {
+  let userInput = {
+    userGesture () {
+      return document.querySelector('input[name=gesture]:checked').value;
+    },
+    clickToPlay () {
+      document.getElementById('play').addEventListener('click', function () {
+        displayReaction.resetComputerDisplay();
+        displayReaction.playGame();
+      });
+    }
+  };
+
+  let computerMove = {
+    _gestureChoice: ['rock', 'paper', 'scissors'],
+
+    get compGesture() {
+      randomIndex = Math.floor(Math.random() * 3);
+      return this._gestureChoice[randomIndex];
+    },
+
+    isDraw(userChoise, computerChoise) {
+      return userChoise === computerChoise;
+    },
+
+    humanWins(userChoise, computerChoise) {
+      return userChoise === 'rock' && computerChoise === 'scissors' ||
+             userChoise === 'paper' && computerChoise === 'rock' ||
+             userChoise === 'scissors' && computerChoise === 'paper';
+    }
+  };
+
   const displayReaction = {
-    userMove: userGesture(),
-    computerMove: compGesture(),
     _winSound: new Audio('audio/tada.mp3'),
     _drawSound: new Audio('audio/kongas.mp3'),
     _loseSound: new Audio('audio/Wrong-answer-sound-effect.mp3'),
@@ -89,13 +118,16 @@ document.getElementById('play').addEventListener('click', function () {
     },
 
     playGame() {
-      document.getElementById(`c_${this.computerMove}`).classList.add('selected');
+      let humanMove = userInput.userGesture(),
+      robotMove = computerMove.compGesture;
 
-      if (isDraw(userMove, computerMove)) {
+      document.getElementById(`c_${robotMove}`).classList.add('selected');
+
+      if (computerMove.isDraw(humanMove, robotMove)) {
         this._drawSound.play();
         return this._updateDispay('Its a draw!', 'images/human.png', 'images/robot.png');
 
-      } else if (humanWins(userMove, computerMove)) {
+      } else if (computerMove.humanWins(humanMove, robotMove)) {
         this._winSound.play();
         return this._updateDispay('You win!', 'images/human-win.png', 'images/robot-sad.png');
 
@@ -106,6 +138,6 @@ document.getElementById('play').addEventListener('click', function () {
     }
   };
 
+  userInput.clickToPlay();
 
-
-})();
+  })();
