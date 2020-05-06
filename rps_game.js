@@ -1,67 +1,74 @@
-function userGesture() {
-  return document.querySelector('input[name=gesture]:checked').value;
-}
+(function () {
+  let userInput = {
+    userGesture () {
+      return document.querySelector('input[name=gesture]:checked').value;
+    },
+    clickToPlay () {
+      document.getElementById('play').addEventListener('click', function () {
+        gameLayout.resetComputerDisplay();
+        gameLayout.playGame();
+      });
+    }
+  };
 
-function compGesture() {
-  var gestureChoice = ['rock', 'paper', 'scissors'];
-  var randomIndex = Math.floor(Math.random() * 3);
-  return gestureChoice[randomIndex];
-}
+  let computerMove = {
+    _gestureChoice: ['rock', 'paper', 'scissors'],
 
-function isDraw(userChoise, computerChoise) {
-  return userChoise === computerChoise;
-}
+    get compGesture() {
+      let randomIndex = Math.floor(Math.random() * this._gestureChoice.length);
+      return this._gestureChoice[randomIndex];
+    },
 
-function humanWins(userChoise, computerChoise) {
-  return userChoise === 'rock' && computerChoise === 'scissors' ||
-  userChoise === 'paper' && computerChoise === 'rock' ||
-  userChoise === 'scissors' && computerChoise === 'paper';
-}
+    isDraw(userChoise, computerChoise) {
+      return userChoise === computerChoise;
+    },
 
-function resetComputerDisplay() {
-  document.getElementById('c_rock').classList.remove('selected');
-  document.getElementById('c_paper').classList.remove('selected');
-  document.getElementById('c_scissors').classList.remove('selected');
-}
+    humanWins(userChoise, computerChoise) {
+      return userChoise === 'rock' && computerChoise === 'scissors' ||
+             userChoise === 'paper' && computerChoise === 'rock' ||
+             userChoise === 'scissors' && computerChoise === 'paper';
+    }
+  };
 
-function updateDispay(printOnScreen, humanDisplay, robotDisplay) {
-  result.textContent = printOnScreen;
-  document.getElementById('human_face').src = humanDisplay;
-  document.getElementById('robot_face').src = robotDisplay;
-}
+  const gameLayout = {
+    _winSound: new Audio('audio/tada.mp3'),
+    _drawSound: new Audio('audio/kongas.mp3'),
+    _loseSound: new Audio('audio/Wrong-answer-sound-effect.mp3'),
+    _result: document.getElementById('result'),
 
-function playGame() {
-  let userMove = userGesture();
-  let computerMove = compGesture();
+    resetComputerDisplay() {
+      document.getElementById('c_rock').classList.remove('selected');
+      document.getElementById('c_paper').classList.remove('selected');
+      document.getElementById('c_scissors').classList.remove('selected');
+    },
 
-  const winSound = new Audio('audio/tada.mp3');
-  const drawSound = new Audio('audio/kongas.mp3');
-  const loseSound = new Audio('audio/Wrong-answer-sound-effect.mp3');
+    _updateDispay(printOnScreen, humanDisplay, robotDisplay) {
+      this._result.textContent = printOnScreen;
+      document.getElementById('human_face').src = humanDisplay;
+      document.getElementById('robot_face').src = robotDisplay;
+    },
 
-  const result = document.getElementById('result');
+    playGame() {
+      let humanMove = userInput.userGesture(),
+      robotMove = computerMove.compGesture;
 
+      document.getElementById(`c_${robotMove}`).classList.add('selected');
 
-  document.getElementById(`c_${computerMove}`).classList.add('selected');
+      if (computerMove.isDraw(humanMove, robotMove)) {
+        this._drawSound.play();
+        return this._updateDispay('Its a draw!', 'images/human.png', 'images/robot.png');
 
+      } else if (computerMove.humanWins(humanMove, robotMove)) {
+        this._winSound.play();
+        return this._updateDispay('You win!', 'images/human-win.png', 'images/robot-sad.png');
 
-  if (isDraw(userMove, computerMove)) {
-    drawSound.play();
-    return updateDispay('Its a draw!', 'images/human.png', 'images/robot.png');
+      } else {
+        this._loseSound.play();
+        return this._updateDispay('You lose!', 'images/human-sad.png', 'images/robot-win.png');
+      }
+    }
+  };
 
-  } else if (humanWins(userMove, computerMove)) {
-    winSound.play();
-    return updateDispay('You win!', 'images/human-win.png', 'images/robot-sad.png');
+  userInput.clickToPlay();
 
-  } else {
-    loseSound.play();
-    return updateDispay('You lose!', 'images/human-sad.png', 'images/robot-win.png');
-  }
-}
-
-
-document.getElementById('play').addEventListener('click', function () {
-
-  resetComputerDisplay();
-  playGame();
-
-});
+  })();
