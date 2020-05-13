@@ -1,16 +1,4 @@
 (function () {
-  class UserInput {
-    userGesture () {
-      return document.querySelector('input[name=gesture]:checked').value;
-    }
-    clickToPlay () {
-      document.getElementById('play').addEventListener('click', function () {
-        gameOutput.resetComputerDisplay();
-        gameOutput.playGame();
-      });
-    }
-  }
-
   class ComputerMove {
     constructor() {
       this._gestureChoice = ['rock', 'paper', 'scissors'];
@@ -32,14 +20,17 @@
     }
   }
 
-  class GameLayout {
-    constructor(ui, gameLogic) {
+  class UserInterface {
+    constructor(gameLogic) {
       this._winSound = new Audio('audio/tada.mp3');
       this._drawSound = new Audio('audio/kongas.mp3');
       this._loseSound = new Audio('audio/Wrong-answer-sound-effect.mp3');
       this._result = document.getElementById('result');
-      this._ui = ui;
       this._gameLogic = gameLogic;
+    }
+
+    _userGesture () {
+      return document.querySelector('input[name=gesture]:checked').value;
     }
 
     resetComputerDisplay() {
@@ -55,7 +46,7 @@
     }
 
     playGame() {
-      let humanMove = this._ui.userGesture(),
+      let humanMove = this._userGesture(),
       robotMove = this._gameLogic.compGesture;
 
       document.getElementById(`c_${robotMove}`).classList.add('selected');
@@ -73,12 +64,18 @@
         return this._updateDispay('You lose!', 'images/human-sad.png', 'images/robot-win.png');
       }
     }
+
+    clickToPlay () {
+      document.getElementById('play').addEventListener('click', () => {
+        this.resetComputerDisplay();
+        this.playGame();
+      });
+    }
   }
 
-  const gameInput = new UserInput();
   const gameLogic = new ComputerMove();
-  const gameOutput = new GameLayout(gameInput, gameLogic);
+  const gameUI = new UserInterface(gameLogic);
 
-  gameInput.clickToPlay();
+  gameUI.clickToPlay();
 
 })();
