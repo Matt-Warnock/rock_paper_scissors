@@ -21,8 +21,27 @@ describe('ComputerMove', function () {
     expect(computerMove.humanWins('rock', 'scissors')).toBe(true);
   });
 
-  it('detects when human loses', function () {
+  it('checks if paper bests rock', function () {
+    expect(computerMove.humanWins('paper', 'rock')).toBe(true);
+  });
+
+  it('checks if scissors bests paper', function () {
+    expect(computerMove.humanWins('scissors', 'paper')).toBe(true);
+  });
+
+  it('detects when human loses with scissors', function () {
     expect(computerMove.humanWins('scissors', 'rock')).toBe(false);
   });
 
+  it('detects when human loses with rock', function () {
+    expect(computerMove.humanWins('rock', 'paper')).toBe(false);
+  });
+
+  it('detects when human loses with paper', function () {
+    expect(computerMove.humanWins('paper', 'scissors')).toBe(false);
+  });
+
+  it('ignores if there is a draw', function () {
+    expect(computerMove.humanWins('paper', 'paper')).not.toBe(true);
+  });
 });
